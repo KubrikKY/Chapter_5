@@ -215,3 +215,212 @@ function groupById(arr) {
         return obj;
     },{});
 }
+
+// --------------5------------
+
+
+// Напишите функцию aclean(arr), которая возвращает массив слов, очищенный от анаграмм.
+
+function aclean(arr) {
+    let map = new Map();
+    for (let str of arr) {
+        let sort = str.toLowerCase().split('').sort().join('');
+        map.set(sort, str);
+    }
+
+    return Array.from(map.values());
+}
+
+
+// Создайте функцию unique(arr), которая вернёт массив уникальных, не повторяющихся значений массива arr.
+
+function unique(arr) {
+    return Array.from(new Set(arr));
+  }
+  
+  let values = ["Hare", "Krishna", "Hare", "Krishna",
+    "Krishna", "Krishna", "Hare", "Hare", ":-O"
+  ];
+  
+  console.log( unique(values) );
+
+
+// --------------6------------
+
+// Есть объект salaries с произвольным количеством свойств, содержащих заработные платы.
+
+// Напишите функцию sumSalaries(salaries), которая возвращает сумму всех зарплат с помощью метода Object.values и цикла for..of.
+
+// Если объект salaries пуст, то результат должен быть 0.
+
+function sumSalaries(salaries) {
+    let sum = 0;
+
+    for (let salar of Object.values(salaries)) {
+        sum += salar;
+    }
+
+    return sum;
+}
+
+let salaries = {
+    "John": 100,
+    "Pete": 300,
+    "Mary": 250
+  };
+  
+  console.log( sumSalaries(salaries) );
+
+
+//   Напишите функцию count(obj), которая возвращает количество свойств объекта:
+
+function count(obj) {
+    return Object.keys(obj).length;
+}
+
+
+// --------------7------------
+
+// У нас есть объект:
+
+let user = {
+  name: "John",
+  years: 30
+};
+
+// Напишите деструктурирующее присваивание, которое:
+
+// свойство name присвоит в переменную name.
+// свойство years присвоит в переменную age.
+// свойство isAdmin присвоит в переменную isAdmin (false, если нет такого свойства)
+
+
+let {name, years: age, isAdmin = false} = user;
+
+console.log(age);
+
+// У нас есть объект salaries с зарплатами:
+
+let salaries = {
+  "John": 100,
+  "Pete": 300,
+  "Mary": 250
+};
+// Создайте функцию topSalary(salaries), которая возвращает имя самого высокооплачиваемого сотрудника.
+
+// Если объект salaries пустой, то нужно вернуть null.
+// Если несколько высокооплачиваемых сотрудников, можно вернуть любого из них.
+
+
+function topSalary(salaries) {
+    let topSalar = 0,
+        topName = null;
+    
+    for (let [name, salar] of Object.entries(salaries)) {
+        if (topSalar < salar) {
+            topSalar = salar;
+            topName = name;
+        }
+    }
+    return topName;
+}
+
+
+
+// --------------8------------
+
+// Создайте объект Date для даты: 20 февраля 2012 года, 3 часа 12 минут. Временная зона – местная.
+
+let date = new Date(2012, 1, 20, 3, 12);
+
+console.log(date);
+
+// Напишите функцию getWeekDay(date), показывающую день недели в коротком формате: «ПН», «ВТ», «СР», «ЧТ», «ПТ», «СБ», «ВС».
+
+function getWeekDay(date) {
+    let weekDay = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+    return weekDay[date.getDay()];
+}
+
+console.log(getWeekDay(new Date()));
+
+
+// В Европейских странах неделя начинается с понедельника (день номер 1), затем идёт вторник (номер 2) и так до воскресенья (номер 7). Напишите функцию getLocalDay(date), которая возвращает «европейский» день недели для даты date.
+
+function getLocalDay(date) {
+    return date.getDay() == 0? 7: date.getDay();
+}
+
+console.log(getLocalDay(new Date(2023, 1, 1, 15)));
+
+// Создайте функцию getDateAgo(date, days), возвращающую число, которое было days дней назад от даты date.
+
+function getDateAgo(date, days) {
+    let newDate = date;
+    newDate.setDate(date.getDate() - days);
+    return newDate.getDate();
+}
+
+// Напишите функцию getLastDayOfMonth(year, month), возвращающую последнее число месяца. Иногда это 30, 31 или даже февральские 28/29.
+
+function getLastDayOfMonth(year, month) {
+    let date = new Date(year, month + 1, 0);
+    return date.getDate();
+}
+
+console.log(getLastDayOfMonth(2012, 1));
+
+
+// Напишите функцию getSecondsToday(), возвращающую количество секунд с начала сегодняшнего дня.
+
+function getSecondsToday() {
+    let now = new Date(),
+        today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return Math.round((now - today)/1000);
+}
+
+console.log(getSecondsToday());
+
+// Создайте функцию getSecondsToTomorrow(), возвращающую количество секунд до завтрашней даты.
+
+function getSecondsToTomorrow() {
+    let now = new Date(),
+        tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+    return Math.round((tomorrow - now)/1000);
+}
+
+console.log(getSecondsToTomorrow());
+
+// --------------9------------
+
+
+// Преобразуйте user в JSON, затем прочитайте этот JSON в другую переменную.
+
+let user = {
+  name: "Василий Иванович",
+  age: 35
+};
+
+let newUser = JSON.parse(JSON.stringify(user));
+
+
+
+// Напишите функцию replacer для JSON-преобразования, которая удалит свойства, ссылающиеся на meetup:
+
+ let room = {
+  number: 23
+};
+
+let meetup = {
+  title: "Совещание",
+  occupiedBy: [{name: "Иванов"}, {name: "Петров"}],
+  place: room
+};
+
+// цикличные ссылки
+room.occupiedBy = meetup;
+meetup.self = meetup;
+
+alert( JSON.stringify(meetup, function replacer(key, value) {
+  return (key != '' && value == meetup)? undefined: value;
+}));
